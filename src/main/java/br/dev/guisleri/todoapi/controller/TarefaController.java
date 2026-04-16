@@ -5,6 +5,7 @@ import br.dev.guisleri.todoapi.service.ITarefaService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +31,11 @@ public class TarefaController {
     @PostMapping
     public ResponseEntity<Tarefa> criarTarefa(@Valid @RequestBody Tarefa tarefa) {
         return ResponseEntity.status(201).body(service.salvar(tarefa));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Tarefa> atualizarTarefa(@PathVariable Long id, @Valid @RequestBody Tarefa tarefa) {
+        return ResponseEntity.ok(service.atualizar(id, tarefa));
     }
 
     @DeleteMapping("/{id}")
