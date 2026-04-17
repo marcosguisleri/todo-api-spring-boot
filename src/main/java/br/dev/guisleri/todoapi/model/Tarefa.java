@@ -22,19 +22,15 @@ public class Tarefa {
     @Column(name = "id")
     private Long id;
 
-    @NotBlank
     @Column(name = "titulo", length = 255, nullable = false)
     private String titulo;
 
-    @NotBlank
     @Column(name = "descricao", length = 255, nullable = false)
     private String descricao;
 
-    @NotNull
     @Column(name = "data_entrega")
     private LocalDate dataEntrega;
 
-    @NotNull
     @Column(name = "prioridade")
     @Enumerated(EnumType.STRING)
     private Prioridade prioridade;
