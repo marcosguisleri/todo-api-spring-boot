@@ -36,6 +36,25 @@ public class TarefaController {
         return ResponseEntity.ok(toDTO(tarefa));
     }
 
+    @PostMapping
+    public ResponseEntity<TarefaResponseDTO> criarTarefa(@Valid @RequestBody TarefaRequestDTO dto) {
+        Tarefa tarefa = toEntity(dto);
+        return ResponseEntity.status(201).body(toDTO(service.salvar(tarefa)));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TarefaResponseDTO> atualizarTarefa(@PathVariable Long id, @Valid @RequestBody TarefaRequestDTO dto) {
+        Tarefa tarefa = toEntity(dto);
+        return ResponseEntity.ok(toDTO(service.atualizar(id, tarefa)));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarTarefa(@PathVariable Long id) {
+        service.deletar(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    // Converter Entidade em DTO
     private TarefaResponseDTO toDTO(Tarefa tarefa) {
         return new TarefaResponseDTO(
                 tarefa.getId(),
@@ -47,25 +66,16 @@ public class TarefaController {
         );
     }
 
-    @PostMapping
-    public ResponseEntity<Tarefa> criarTarefa(@Valid @RequestBody TarefaRequestDTO dto) {
+    // Converte DTO em Tarefa
+    private Tarefa toEntity(TarefaRequestDTO dto) {
         Tarefa tarefa = new Tarefa();
         tarefa.setTitulo(dto.titulo());
         tarefa.setDescricao(dto.descricao());
         tarefa.setDataEntrega(dto.dataEntrega());
         tarefa.setPrioridade(dto.prioridade());
         tarefa.setConcluida(dto.concluida());
-        return ResponseEntity.status(201).body(service.salvar(tarefa));
-    }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Tarefa> atualizarTarefa(@PathVariable Long id, @Valid @RequestBody Tarefa tarefa) {
-        return ResponseEntity.ok(service.atualizar(id, tarefa));
-    }
-
-    @DeleteMapping("/{id}")
-    public void deletarTarefa(@PathVariable Long id) {
-        service.deletar(id);
+        return tarefa;
     }
 
 }
