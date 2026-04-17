@@ -28,6 +28,8 @@ src/main/java/br/dev/guisleri/todoapi/
 │   └── GlobalExceptionHandler.java  # Tratamento global de erros
 ├── dto/
 │   └── ErrorDTO.java                # Resposta padronizada de erros
+│   └── TarefaRequestDTO.java        # Converte DTO em Entity
+│   └── TarefaResponseDTO.java       # Converte Entity em DTO
 ├── exception/
 │   └── TarefaNaoEncontrada.java     # Exception customizada
 ├── model/
@@ -124,7 +126,6 @@ O console do H2 pode ser acessado em `http://localhost:8080/h2-console`.
 
 ## 🗺️ Próximos passos
 
-- [ ] Criar DTOs para separar a entidade da camada de API
 - [ ] Adicionar Spring Security com autenticação JWT
 - [ ] Migrar para PostgreSQL
 - [ ] Documentar com Swagger/OpenAPI
